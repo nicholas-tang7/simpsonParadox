@@ -46,13 +46,15 @@ plot1 <- ggplot(data = penguins,
         y = bill_depth_mm)) +
   theme_minimal(16) +
   geom_point(alpha = 0.6, color = "steelblue") +
-  labs(title = "Overall Relationship: Bill Length vs. Bill Depth",
-       subtitle = "Ignoring species differences",
+  labs(title = "Overall Relationship",
+       subtitle = "Bill Length vs. Bill Depth",
        x = "Bill length (mm)",
        y = "Bill depth (mm)") +
   theme(plot.title.position = "plot",
         plot.caption = element_text(hjust = 0, face= "italic"),
-        plot.caption.position = "plot") +
+        plot.caption.position = "plot",
+        plot.title = element_text(size = 14, margin = margin(b = 20)),
+        plot.subtitle = element_text(size = 12, margin = margin(b = 15))) +
   geom_smooth(method = "lm", se = FALSE, color = "red", linewidth = 1.5)
 
 plot1
@@ -79,14 +81,16 @@ plot2 <- ggplot(data = penguins,
   scale_color_manual(values = c("darkorange","purple","cyan4"),
                      name = "Species") +
   labs(title = "Simpson's Paradox Revealed!",
-       subtitle = "The relationship reverses when we consider species",
+       subtitle = "Species-specific relationships",
        x = "Bill length (mm)",
        y = "Bill depth (mm)",
        caption = "Red line: Overall trend | Colored lines: Within-species trends") +
   theme(plot.title.position = "plot",
         plot.caption = element_text(hjust = 0, face = "italic"),
         plot.caption.position = "plot",
-        legend.position = "bottom") +
+        legend.position = "bottom",
+        plot.title = element_text(size = 14, margin = margin(b = 20)),
+        plot.subtitle = element_text(size = 12, margin = margin(b = 15))) +
   # Overall trend (ignoring species)
   geom_smooth(method = "lm", se = FALSE, color = "red", 
               linewidth = 1.5, alpha = 0.8) +
@@ -117,16 +121,16 @@ Simpson’s Paradox crystal clear:
 ``` r
 # Create the side-by-side comparison using patchwork
 comparison_plot <- plot1 + plot2 +
-  plot_layout(guides = "collect") +
+  plot_layout(guides = "collect", widths = c(1, 1), ncol = 2) +
   plot_annotation(
     title = "Simpson's Paradox: The Same Data, Two Different Stories",
     subtitle = "Left: Overall relationship (misleading) | Right: Species-specific relationships (truth)",
     caption = "The paradox: A positive overall trend masks negative within-species trends due to species confounding",
     theme = theme_minimal(16) +
       theme(
-        plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
-        plot.subtitle = element_text(size = 14, hjust = 0.5, color = "darkred"),
-        plot.caption = element_text(size = 12, hjust = 0, face = "italic", color = "darkblue"),
+        plot.title = element_text(size = 18, face = "bold", hjust = 0.5, margin = margin(b = 40)),
+        plot.subtitle = element_text(size = 14, hjust = 0.5, color = "darkred", margin = margin(b = 30)),
+        plot.caption = element_text(size = 12, hjust = 0, face = "italic", color = "darkblue", margin = margin(t = 30)),
         plot.title.position = "plot",
         plot.caption.position = "plot"
       )
@@ -135,8 +139,9 @@ comparison_plot <- plot1 + plot2 +
 comparison_plot
 ```
 
-![Side-by-Side Comparison: Simpson’s Paradox in
-Action](README_files/figure-commonmark/unnamed-chunk-3-1.png)
+<img src="README_files/figure-commonmark/unnamed-chunk-3-1.png"
+style="width:100.0%"
+alt="Side-by-Side Comparison: Simpson’s Paradox in Action" />
 
 **The Power of Side-by-Side Comparison!** 🎯
 
