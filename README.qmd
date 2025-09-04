@@ -107,17 +107,41 @@ This is Simpson's Paradox in action. The species variable is a **confounding var
 
 ### C. Side-by-Side Comparison
 
-**🎯 Your Task:** Use Cursor's AI assistant to create a compelling side-by-side comparison plot!
+Now let's create a compelling side-by-side comparison that makes Simpson's Paradox crystal clear:
 
-**Instructions:**
-1. Ask Cursor: *"Create a side-by-side comparison plot using patchwork that combines plot1 and plot2 with a title, subtitle, and caption explaining Simpson's Paradox"*
-2. The plot should clearly show the contrast between the overall relationship and the species-specific relationships
-3. Use `theme_minimal(16)` for consistency
-4. **Replace these instructions with the actual plot code that Cursor generates**
-5. **Render the README.md file** using `quarto render README.qmd`
-6. Make sure to sync your changes to your GitHub folder for grading!
+```{r}
+#| message: false
+#| warning: false
+#| eval: true
+#| fig-cap: "Side-by-Side Comparison: Simpson's Paradox in Action"
 
-**What you should see:** A powerful visualization that makes Simpson's Paradox crystal clear - the same data telling two completely different stories depending on whether we consider the species grouping variable.
+# Create the side-by-side comparison using patchwork
+comparison_plot <- plot1 + plot2 +
+  plot_layout(guides = "collect") +
+  plot_annotation(
+    title = "Simpson's Paradox: The Same Data, Two Different Stories",
+    subtitle = "Left: Overall relationship (misleading) | Right: Species-specific relationships (truth)",
+    caption = "The paradox: A positive overall trend masks negative within-species trends due to species confounding",
+    theme = theme_minimal(16) +
+      theme(
+        plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(size = 14, hjust = 0.5, color = "darkred"),
+        plot.caption = element_text(size = 12, hjust = 0, face = "italic", color = "darkblue"),
+        plot.title.position = "plot",
+        plot.caption.position = "plot"
+      )
+  )
+
+comparison_plot
+```
+
+**The Power of Side-by-Side Comparison!** 🎯
+
+This visualization perfectly demonstrates Simpson's Paradox:
+- **Left plot:** Shows the misleading overall positive relationship (red line going up)
+- **Right plot:** Reveals the truth - within each species, the relationship is actually negative (colored lines going down)
+
+The contrast is striking and immediately shows why we must always consider confounding variables and group-specific relationships before drawing conclusions from aggregate data.
 
 ## Key Takeaways: Lessons from Simpson's Paradox
 
